@@ -1,0 +1,653 @@
+﻿<!DOCTYPE html>
+<html style="" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>:: STT - GAT® Link ::</title>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="description" content="STT GAT Link">
+    <meta name="keywords" content="app,maps,stt">
+    <meta name="author" content="leonamcorreia">
+
+     
+    <link href="files/pace-theme-flash.css" rel="stylesheet">
+    <link href="files/uniform.default.min.css" rel="stylesheet">
+    <link href="files/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="./weather-icons-master/css/weather-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="./simple-line-icons-master/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="files/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="files/menu_cornerbox.css" rel="stylesheet" type="text/css">
+    <link href="files/waves.min.css" rel="stylesheet" type="text/css">
+    <link href="files/switchery.min.css" rel="stylesheet" type="text/css">
+    <link href="files/style.css" rel="stylesheet" type="text/css">
+    <link href="files/component.css" rel="stylesheet" type="text/css">
+    <link href="files/MetroJs.min.css" rel="stylesheet" type="text/css">
+    <link href="files/toastr.min.css" rel="stylesheet" type="text/css">
+    <link href="files/modern.min.css" rel="stylesheet" type="text/css">
+    <link href="files/green.css" class="theme-color" rel="stylesheet" type="text/css">
+    <link href="files/custom.css" rel="stylesheet" type="text/css">
+    <script src="js/apijs.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+
+
+    <!-- Funções -->
+    <script>
+
+        //Page Load
+        window.onload = function () {
+            //variaveis
+            iduser_global = queryString("id");
+            user_global = queryString("nom");
+            permissao_global = queryString("perm");
+            status_global = queryString("st");
+
+            //consulta
+            var sret = Pontos_Usuario(iduser_global, permissao_global);
+
+            //valida retorno
+            if (sret == '[]') {
+                //alerta
+                document.getElementById("alerta").style = "display: visible;";
+                document.getElementById("alerta").innerHTML = "<strong><i class='fa fa-exclamation-triangle' aria-hidden='true'></i>&nbsp;Atenção !</strong> Sem Pontos cadastrado!";
+            }
+            else {
+                var obj_json = JSON.parse(sret);
+
+                //
+                navigator.geolocation.getCurrentPosition(function showpotion(position) {
+                    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                    //define conf
+                    var options = {
+                        zoom: 18,
+                        center: latlng
+                    };
+
+                    //cria mapa
+                    map2 = new google.maps.Map(document.getElementById("mapa"), options);
+
+                    //coloca marcador
+                    var marker = new google.maps.Marker({ position: latlng, map: map2, label: { text: "Você está aqui", fontSize: '16px', fontWeight: '990' } });
+
+
+                    var locais = [
+                        { lat: -23.8080668	, lng: -46.0871088, nome: 'Local 1' },
+{ lat: -23.8094762	, lng: -46.0833973, nome: 'Local 1' },
+{ lat: -21.145117	, lng: -48.994442, nome: 'Local 1' },
+{ lat: -21.1453424	, lng: -48.994257, nome: 'Local 1' },
+{ lat: -21.1452937	, lng: -48.9943036, nome: 'Local 1' },
+{ lat: -21.1451676	, lng: -48.9943555, nome: 'Local 1' },
+{ lat: -22.1009412	, lng: -51.3899069, nome: 'Local 1' },
+{ lat: -21.1453599, lng: 	-48.9942053, nome: 'Local 1' },
+{ lat: -22.1009116, lng: 	-51.3899831, nome: 'Local 1' },
+{ lat: -22.1008558, lng: 	-51.3900917, nome: 'Local 1' },
+{ lat: -21.145274, lng: 	-48.994305, nome: 'Local 1' },
+{ lat: -23.8094071, lng: 	-46.0838861, nome: 'Local 1' },
+{ lat: -22.1008641, lng: 	-51.3900917, nome: 'Local 1' },
+{ lat: -23.8080423, lng: 	-46.0871369, nome: 'Local 1' },
+{ lat: -22.1008125, lng: 	-51.3900767, nome: 'Local 1' },
+{ lat: -22.1008324, lng: 	-51.390165, nome: 'Local 1' },
+{ lat: -23.0211158, lng: 	-45.5621489, nome: 'Local 1' },
+{ lat: -22.1006929, lng: 	-51.3901163, nome: 'Local 1' },
+{ lat: -23.0211158, lng: 	-45.5621489, nome: 'Local 1' },
+{ lat: -22.100578, lng: 	-51.3901241, nome: 'Local 1' },
+{ lat: -21.1455342, lng: 	-48.9941931, nome: 'Local 1' },
+{ lat: -21.1454291, lng: 	-48.9941842, nome: 'Local 1' },
+{ lat: -21.1453407, lng: 	-48.9942979, nome: 'Local 1' },
+{ lat: -22.1005547, lng: 	-51.390148, nome: 'Local 1' },
+{ lat: -21.1453451, lng: 	-48.9943117, nome: 'Local 1' },
+{ lat: -22.1005813, lng: 	-51.3903089, nome: 'Local 1' },
+{ lat: -22.1005381, lng: 	-51.3902144, nome: 'Local 1' },
+{ lat: -22.1005246, lng: 	-51.3903529, nome: 'Local 1' },
+{ lat: -21.1455672, lng: 	-48.9940414, nome: 'Local 1' },
+{ lat: -21.1455672, lng: 	-48.9940414, nome: 'Local 1' },
+{ lat: -22.1004984, lng: 	-51.3904158, nome: 'Local 1' },
+{ lat: -23.0210385, lng: 	-45.5620855, nome: 'Local 1' },
+{ lat: -22.10049, lng: 	-51.3904118, nome: 'Local 1' },
+{ lat: -23.0211336, lng: 	-45.5621969, nome: 'Local 1' },
+{ lat: -22.1004582, lng: 	-51.390466, nome: 'Local 1' },
+{ lat: -21.145478, lng: 	-48.9940945, nome: 'Local 1' },
+{ lat: -22.1004526, lng: 	-51.3904593, nome: 'Local 1' },
+{ lat: -21.1455591, lng: 	-48.9940413, nome: 'Local 1' },
+{ lat: -21.145558, lng: 	-48.9940438, nome: 'Local 1' },
+{ lat: -21.1454659, lng: 	-48.9940471, nome: 'Local 1' },
+{ lat: -22.1028014, lng: 	-51.3891375, nome: 'Local 1' },
+{ lat: -23.0210727, lng: 	-45.5622329, nome: 'Local 1' },
+{ lat: -23.8094753, lng: 	-46.0841761, nome: 'Local 1' },
+{ lat: -23.0210675, lng: 	-45.5621748, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -22.1000728, lng: 	-51.3906497, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -23.8093641, lng: 	-46.0843261, nome: 'Local 1' },
+{ lat: -23.0210711, lng: 	-45.562239, nome: 'Local 1' },
+{ lat: -22.0999887, lng: 	-51.3906641, nome: 'Local 1' },
+{ lat: -23.021052, lng: 	-45.5623818, nome: 'Local 1' },
+{ lat: -23.8093741, lng: 	-46.0843022, nome: 'Local 1' },
+{ lat: -23.021061, lng: 	-45.5621609, nome: 'Local 1' },
+{ lat: -22.0999432, lng: 	-51.3906776, nome: 'Local 1' },
+{ lat: -22.1000069, lng: 	-51.3907781, nome: 'Local 1' },
+{ lat: -22.0999373, lng: 	-51.3908879, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -22.0999455, lng: 	-51.3908201, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -22.3318976, lng: 	-49.0154043, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -20.6041638, lng: 	-47.8710884, nome: 'Local 1' },
+{ lat: -22.3319529, lng: 	-49.015385, nome: 'Local 1' },
+{ lat: -23.3466409, lng: 	-47.8283043, nome: 'Local 1' },
+{ lat: -21.1458055, lng: 	-48.993568, nome: 'Local 1' },
+{ lat: -23.3466307, lng: 	-47.8283374, nome: 'Local 1' },
+{ lat: -21.1457573, lng: 	-48.9935906, nome: 'Local 1' },
+{ lat: -23.0213101, lng: 	-45.5612914, nome: 'Local 1' },
+{ lat: -23.021268, lng: 	-45.5613211, nome: 'Local 1' },
+{ lat: -23.0208844, lng: 	-45.5610681, nome: 'Local 1' },
+{ lat: -23.8114161, lng: 	-46.0831308, nome: 'Local 1' },
+{ lat: -22.3320155, lng: 	-49.0153669, nome: 'Local 1' },
+{ lat: -23.0209071, lng: 	-45.56109, nome: 'Local 1' },
+{ lat: -23.8114272, lng: 	-46.0831377, nome: 'Local 1' },
+{ lat: -23.0208978, lng: 	-45.5610376, nome: 'Local 1' },
+{ lat: -22.3319326, lng: 	-49.0153909, nome: 'Local 1' },
+{ lat: -23.0208846, lng: 	-45.5609084, nome: 'Local 1' },
+{ lat: -21.1458115, lng: 	-48.993724, nome: 'Local 1' },
+{ lat: -22.3319286, lng: 	-49.0153903, nome: 'Local 1' },
+{ lat: -21.1458597, lng: 	-48.9935258, nome: 'Local 1' },
+{ lat: -22.3319047, lng: 	-49.0154027, nome: 'Local 1' },
+{ lat: -23.0209798, lng: 	-45.5609133, nome: 'Local 1' },
+{ lat: -21.1458793, lng: 	-48.9935216, nome: 'Local 1' },
+{ lat: -21.1460484, lng: 	-48.993282, nome: 'Local 1' },
+{ lat: -21.1458443, lng: 	-48.993636, nome: 'Local 1' },
+{ lat: -21.146015, lng: 	-48.9931982, nome: 'Local 1' },
+{ lat: -21.2066932, lng: 	-50.3962376, nome: 'Local 1' },
+{ lat: -23.0208373, lng: 	-45.5608737, nome: 'Local 1' },
+{ lat: -22.3319137, lng: 	-49.0153892, nome: 'Local 1' },
+{ lat: -23.020242, lng: 	-45.5602781, nome: 'Local 1' },
+{ lat: -22.3319108, lng: 	-49.0153949, nome: 'Local 1' },
+{ lat: -21.1457681, lng: 	-48.9936638, nome: 'Local 1' },
+{ lat: -23.0208708, lng: 	-45.5608698, nome: 'Local 1' },
+{ lat: -21.1457255, lng: 	-48.9936714, nome: 'Local 1' },
+                        { lat: -23.570316, lng: -46.633308, nome: 'Local 1' }
+                        // Adicione quantos locais você precisar
+                    ];
+
+                    // Marcar cada local no mapa
+                    locais.forEach(function (local) {
+                        var marker = new google.maps.Marker({
+                            position: { lat: local.lat, lng: local.lng },
+                            map: map2,
+                            title: local.nome,
+                            label: { text: local.nome }
+                        });
+                    });
+
+                    //Loop para marcar
+                    //for (var i = 0; i < obj_json.length; i++) {
+
+                    //    //cria posicao
+                    //    latlng = new google.maps.LatLng(obj_json[i].Latitude, obj_json[i].Longitude);
+
+                    //    //coloca marcador
+                    //    var marker = new google.maps.Marker({ position: latlng, map: map2, label: { text: obj_json[i].Nome, fontSize: '14px', fontWeight: '990' } });
+                    //}
+
+                });
+            }
+
+            //limpa todos os dados da memoria
+            window.localStorage.clear()
+
+        }
+            
+        //String URL
+        function queryString(parameter) {
+              var loc = location.search.substring(1, location.search.length);
+              var param_value = false;
+              var params = loc.split("&");
+              for (i=0; i<params.length;i++) {
+                  param_name = params[i].substring(0,params[i].indexOf('='));
+                  if (param_name == parameter) {
+                      param_value = params[i].substring(params[i].indexOf('=')+1)
+                  }
+              }
+              if (param_value) {
+                  return param_value;
+              }
+              else {
+                  return undefined;
+              }
+        }
+
+        //Captura localização
+        function getLocation() {
+
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
+
+        //Captura localização
+        function getLocation2() {
+
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(showPosition2);
+            }
+        }
+
+        //Captura posição
+        function showPosition(position) {
+
+            //cria posicao
+            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            //define conf
+            var options = {
+                zoom: 18,
+                center: latlng
+            };
+
+            //cria mapa
+            map = new google.maps.Map(document.getElementById("mapa"), options);
+
+            //coloca marcador
+            var marker = new google.maps.Marker({ position: latlng, map: map, label: "Você" });
+
+            //seta posicao
+            ping_tempo(iduser_global,position.coords.latitude,position.coords.longitude,'');
+
+            //salva posicao hidden
+            document.getElementById("h_lat").value=position.coords.latitude;
+            document.getElementById("h_lng").value=position.coords.longitude;
+
+            //escreve lat , long na tela
+            document.getElementById("lblLatitude").innerHTML="<strong>Latitude: " + position.coords.latitude + "</strong>";
+            document.getElementById("lblLongitude").innerHTML = "<strong>Longitude: " + position.coords.longitude + "</strong>";
+
+        }
+
+        //Captura posição
+        function showPosition2(position) {
+
+            //cria posicao
+            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            //define conf
+            var options = {
+                zoom: 15,
+                center: latlng
+            };
+
+            //cria mapa
+            map = new google.maps.Map(document.getElementById("mapa"), options);
+
+            //coloca marcador
+            var marker = new google.maps.Marker({ position: latlng, map: map, label: "VOCÊ" });
+
+            latlng = new google.maps.LatLng("-23.4981886", "-46.8489867");
+
+            var marker = new google.maps.Marker({ position: latlng, map: map, label: "THAISE", title: "Alameda Araguaia, 1293 - Alphaville Comercial, Barueri - SP, 06455-000, Brasil" });
+
+            latlng = new google.maps.LatLng("-23.4969162", "-46.8488391");
+
+            var marker = new google.maps.Marker({ position: latlng, map: map, label: "DAYANA", title: "Condomínio Comercial Alpha Shopping - Al. Rio Negro, 1033 - Alphaville Comercial, Barueri - SP, 06454-020, Brasil" });
+
+            //seta posicao
+            ping_tempo(iduser_global, position.coords.latitude, position.coords.longitude);
+
+            //salva posicao hidden
+            document.getElementById("h_lat").value = position.coords.latitude;
+            document.getElementById("h_lng").value = position.coords.longitude;
+
+            //escreve lat , long na tela
+            document.getElementById("lblLatitude").innerHTML = "Latitude: " + position.coords.latitude;
+            document.getElementById("lblLongitude").innerHTML = "Longitude: " + position.coords.longitude;
+        }
+
+        //Abre pagina
+        function open_page(pagina){
+            window.location = pagina + '?id=' + iduser_global + '&nom=' + user_global + '&perm=' + permissao_global + '&st=' + status_global;
+            //window.location = 'https://www.gatlink.com.br/appmercadopago/' + pagina + '?id=' + iduser_global + '&nom=' + user_global + '&perm=' + permissao_global + '&st=' + status_global;
+        }
+
+        //Anição dos marcadores do mapa
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+
+    </script>
+
+    <!-- Estilo -->
+    <style>
+
+        /* DivTable.com */
+        .divTable{
+            display: table;
+            width: 100%;
+        }
+        .divTableRow {
+            display: table-row;
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+        }
+        .divTableCell, .divTableHead {
+            border: none;
+            display: table-cell;
+            padding: 3px 10px;
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+        }
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+        }
+        .divTableBody {
+            display: table-row-group;
+        }
+
+
+        #mapa {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #ccc;;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+
+</head>
+<body class="page-header-fixed  pace-done">
+
+    <!-- Barra de Progresso -->
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+
+    <!-- Espaço -->
+    <div class="overlay"></div>
+
+    <!-- BARRA DE MENU SUPERIOR --TOP -->
+    <main class="page-content content-wrap">
+
+		<!-- Navbar -->
+        <div class="navbar">
+            <div class="navbar-inner">
+
+                <div class="sidebar-pusher">
+                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic push-sidebar">
+                        <i class="fa fa-bars" style="color:#ffffff"></i>
+                    </a>
+                </div>
+
+                <!-- GAT LINK -->
+                <div class="logo-box">
+                    <a href="#" style="background-color:#004EA2" class="logo-text"><span style="color:#ffffff">GAT® Link</span></a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MENU ESQUERDA -  -->
+        <div class="page-sidebar sidebar">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+                <div class="page-sidebar-inner slimscroll" style="overflow: hidden; width: auto; height: 100%;">
+
+                    <!-- CABECALHO MENU LATERAL -->
+                    <ul class="menu accordion-menu">
+
+                        <!-- HOME -->
+                        <li ><a href="javascript:open_page('gatlink.html');" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Home</p></a></li>
+
+                        <!-- LOGIN -->
+                        <li class="active"><a href="javascript:open_page('logingeo.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-sign-in"></span><p>Login</p></a></li>
+
+                        <!-- LOGOUT -->
+                        <li><a href="javascript:open_page('logoutgeo.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-sign-out"></span><p>Logout</p></a></li>
+
+                        <!-- CHECKIN -->
+                        <li><a href="javascript:open_page('checkin.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-map-marker"></span><p>Check-In</p></a></li>
+
+                        <!-- CHECKOUT -->
+                        <li><a href="javascript:open_page('checkout.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-external-link-square"></span><p>Check-Out</p></a></li>
+
+                        <!-- ROTAS -->
+                        <li><a href="javascript:open_page('rota.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-location-arrow"></span><p>Rotas</p></a></li>
+
+                        <!-- MAPS -->
+                        <li><a href="javascript:open_page('maps.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-globe"></span><p>Maps</p></a></li>
+
+                        <!-- CLIENTES -->
+                        <li><a href="javascript:open_page('ger_clientes.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-users"></span><p>Clientes</p></a></li>
+
+                        <!-- RELATORIO -->
+                        <li><a href="javascript:open_page('relatorio2.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-bar-chart"></span><p>Relatório</p></a></li>
+                        <!-- VENDAS -->
+                        <!--<li><a href="javascript:open_page('ger_vendas.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-credit-card"></span><p>Vendas</p></a></li>-->
+
+                        <!-- PONTOS -->
+                        <!--<!--<li><a href="javascript:open_page('pontos.html');" class="waves-effect waves-button"><span class="menu-icon fa fa-random"></span><p>Pontos</p></a></li>-->
+
+                        <!-- SAIR -->
+                        <li><a href="login.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-share"></span><p>Sair</p></a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="slimScrollBar" style="background: rgb(204, 204, 204); width: 7px; position: absolute; top: 0px; opacity: 0.3; display: none; border-radius: 0px; z-index: 99; right: 0px; height: 1080px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 0px;"></div>
+            </div><!-- Page Sidebar Inner -->
+        </div>
+
+        <div class="page-inner" >
+
+            <!-- Modal FAQ -->
+            <div class="modal fade" id="modalmaps" tabindex="-1" role="dialog" aria-labelledby="modalmapsLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h2 class="modal-title" id="modalmapsLabel">Questões Gerais</h2>
+                        </div>
+                        <br />
+                        <div class="modal-body" style="font-size:15px">
+                            <!--FAQS -->
+                            <div class="panel-body" style="background-color:white;padding:5px;">
+                                <div class='panel panel-white ui-sortable-handle' style='border-radius: 10px;box-shadow:0px 0px 1em #BBC0C8'>
+                                    <div class='panel-heading' style='padding:18px 18px 10px 18px;height: 30%'>
+                                        <span><b>1.</b>    Para que serve o Maps?</span>
+                                        <div class='panel-control'>
+                                            <a data-target="#linkfiltro" data-toggle='collapse' data-placement='top' class='panel-collapse' data-original-title='Expandir / Reduzir'><i class='icon-arrow-down'></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="linkfiltro" class="collapse">
+                                        <div class="panel-body">
+                                            Para permissão Supervisor:<p></p>
+                                            1 - Serve para identificação da equipe;<p></p>
+                                            2 - Visualizar os promotores com status de Check-In;<p></p>
+                                            3 - Simular o Google Maps;<p></p>
+                                            4 - Visualizar os pontos de proximidade ao redor de sua localização.<p></p><p></p>
+                                            Para permissão Promotor:<p></p>
+                                            2 - Visualizar os promotores com status de Check-In;<p></p>
+                                            3 - Simular o Google Maps;<p></p>
+                                            4 - Visualizar os pontos de proximidade ao redor de sua localização.<p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="background-color:white;padding:5px;">
+                                <div class='panel panel-white ui-sortable-handle' style='border-radius: 10px;box-shadow:0px 0px 1em #BBC0C8'>
+                                    <div class='panel-heading' style='padding:18px 18px 10px 18px;height: 30%'>
+                                        <span>2.    Em Maps é necessário realizar algum registro?</span>
+                                        <div class='panel-control'>
+                                            <a data-target="#linkfiltro2" data-toggle='collapse' data-placement='top' class='panel-collapse' data-original-title='Expandir / Reduzir'><i class='icon-arrow-down'></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="linkfiltro2" class="collapse">
+                                        <div class="panel-body">
+                                            Não, somente visualização e identificação de informações.<p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="background-color:white;padding:5px;">
+                                <div class='panel panel-white ui-sortable-handle' style='border-radius: 10px;box-shadow:0px 0px 1em #BBC0C8'>
+                                    <div class='panel-heading' style='padding:18px 18px 10px 18px;height: 30%'>
+                                        <span>3.    Por que não tem Pontos de Proximidade marcados?</span>
+                                        <div class='panel-control'>
+                                            <a data-target="#linkfiltro3" data-toggle='collapse' data-placement='top' class='panel-collapse' data-original-title='Expandir / Reduzir'><i class='icon-arrow-down'></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="linkfiltro3" class="collapse">
+                                        <div class="panel-body">
+                                            Porque não existe um grupo de pontos cadastrado no GAT Link Administrador.<p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="background-color:white;padding:5px;">
+                                <div class='panel panel-white ui-sortable-handle' style='border-radius: 10px;box-shadow:0px 0px 1em #BBC0C8'>
+                                    <div class='panel-heading' style='padding:18px 18px 10px 18px;height: 30%'>
+                                        <span>4.    Por que não tem Pontos de Proximidade marcados?</span>
+                                        <div class='panel-control'>
+                                            <a data-target="#linkfiltro4" data-toggle='collapse' data-placement='top' class='panel-collapse' data-original-title='Expandir / Reduzir'><i class='icon-arrow-down'></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="linkfiltro4" class="collapse">
+                                        <div class="panel-body">
+                                            Porque não existe um grupo de pontos cadastrado no GAT Link Administrador.<p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="background-color:white;padding:5px;">
+                                <div class='panel panel-white ui-sortable-handle' style='border-radius: 10px;box-shadow:0px 0px 1em #BBC0C8'>
+                                    <div class='panel-heading' style='padding:18px 18px 10px 18px;height: 30%'>
+                                        <span>5.    Para Supervisores - Por que não está marcado minha equipe no Mapa?</span>
+                                        <div class='panel-control'>
+                                            <a data-target="#linkfiltro5" data-toggle='collapse' data-placement='top' class='panel-collapse' data-original-title='Expandir / Reduzir'><i class='icon-arrow-down'></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="linkfiltro5" class="collapse">
+                                        <div class="panel-body">
+                                            Porque no momento do acesso não contém promotor com status de Check-In.<p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" style="border-radius: 10px;width:100%; background-color:#001C4E; height:55px; font-size:14px; border-color:#cfcfcf" class="text-center btn btn-success btn-block">FECHAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TITULO DA PAGINA -->
+            <div class="page-title" style="background-color:#ffffff">
+                <span style="color:#000000;font-size:27px;"><b>Maps</b></span>
+                <a data-toggle="modal" data-target="#modalmaps"><img src="Imagens/qaA.png" style="float:right;max-height:39px;max-width:45px" /></a>
+            </div>
+
+            <div id="alerta" class="alert alert-danger" style="display: none;"></div>
+
+            <!-- CORPO -->
+            <div id="main-wrapper">
+
+                <!-- BLOCOS GERENCIAS -->
+                <div class="panel-body" style="border-radius:10px; box-shadow: 0px 0px 1em #BBC0C8;background-color:white;padding:7px">
+
+                    <div class="col-lg-12" style="padding:1px">
+
+                        <input type="hidden" id="h_lat"/>
+                        <input type="hidden" id="h_lng"/>
+                        <input type="hidden" ID="txtRenderizaMapa"  />
+
+                        <!--Google map-->
+                        <div id="mapa"></div>
+
+                        <!--Google map-->
+                        <div id="mapas"></div>
+
+                        <p></p>
+
+                        <!-- BOTÔES -->
+                        <div>
+                            <button type="button" id="cmdCancelar" onclick="open_page('gatlink.html');" style="border-radius: 10px;width:100%; background-color:#001C4E; height:55px; font-size:14px; border-color:#cfcfcf" class="text-center btn btn-success btn-block">VOLTAR</button>
+                         </div>
+
+                        <br />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RODAPE -->
+            <div class="page-footer">
+                <p class="no-s">2023 © STT GAT® Link -  for World Class Solutions</p>
+            </div>
+
+            <!-- KEY -->
+            <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBio6j0bRhFzCnt3k0mJ9eB-8TReMGeTD8">
+
+            </script>
+
+        </div>
+
+    </main>
+
+    <!-- Javascripts -->
+    <script src="files/jquery-2.1.4.min.js"></script>
+    <script src="files/jquery-ui.min.js"></script>
+    <script src="files/pace.min.js"></script>
+    <script src="files/jquery.blockui.js"></script>
+    <script src="files/bootstrap.min.js"></script>
+    <script src="files/jquery.slimscroll.min.js"></script>
+    <script src="files/switchery.min.js"></script>
+    <script src="files/jquery.uniform.min.js"></script>
+    <script src="files/classie.js"></script>
+    <script src="files/waves.min.js"></script>
+    <script src="files/main2.js"></script>
+    <script src="files/jquery.waypoints.min.js"></script>
+    <script src="files/jquery.counterup.min.js"></script>
+    <script src="files/toastr.min.js"></script>
+    <script src="files/jquery.flot.min.js"></script>
+    <script src="files/jquery.flot.time.min.js"></script>
+    <script src="files/jquery.flot.symbol.min.js"></script>
+    <script src="files/jquery.flot.resize.min.js"></script>
+    <script src="files/jquery.flot.tooltip.min.js"></script>
+    <script src="files/curvedLines.js"></script>
+    <script src="files/MetroJs.min.js"></script>
+    <script src="files/modern.js"></script>    
+
+    <div id="flotTip" style="display: none; position: absolute;"></div>
+
+</body>
+</html>
