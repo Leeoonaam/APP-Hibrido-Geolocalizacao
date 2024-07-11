@@ -9,6 +9,8 @@ Projeto foi desenvolvido com as seguintes tecnologias:
  - Bootstrap
  - CSS
  - API Google Maps
+ - API SOAP
+ - Web Service (C#)
 
 # Projeto
 Aplicativo hibrido para Geolocalização para Vendedores Porta a Porta tendo como principais funcionalidades:
