@@ -13,12 +13,11 @@ Projeto foi desenvolvido com as seguintes tecnologias:
  - Web Service (C#)
 
 # Projeto
-Aplicativo hibrido para Geolocalização para Vendedores Porta a Porta tendo como principais funcionalidades:
+Aplicativo hibrido para Geolocalização para Vendedores Porta a Porta com objetivo de registrar visitas e levantar o ensumo dos endereços e ter um controle maior sobre os vendedores
 
  - Captura Online da Geolocalização
  - Controle de Status do usuario
  - Carteira de endereços (rotas)
- - Pos Venda
  - Relatório de performance
  - Cadastro de venda e clientes
 
